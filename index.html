@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Задания 2 и 3</title>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="Content-Language" content="ru-ru" />
+    <link type="text/css" rel="stylesheet" media="all" href="style.css" />
+    <script type="text/javascript" src="validation.js"></script> 
+    <script type="text/javascript" src="task2.js"></script> 
+    <script type="text/javascript" src="task3.js"></script> 
+    <noscript>
+      <h1>Для выполнения программы разрешите выполнение JavaScript в
+      своем браузере.</h1>
+    </noscript>
+  </head>
+  <body>
+    <div id="task2">
+      <h2>Задание 2.Циклические вычислительные процессы</h2>
+      <p>Составить блок-схему вычислительного процесса и написать
+      программу на любом алгоритмическом языке высокого уровня.</p>
+      <h3>Условие задачи.</h3>
+      <p>№1.Вычислить и вывести на экран сумму k членов ряда ,где x и k-
+    любые целые числа, введенные с клавиатуры:</p>
+      <img src="sum.gif" alt="Сумма ряда отображается картинкой из
+    файла sum.gif" />
+      <h3>Решение:</h3>
+      <form id="task2form" action="">
+	<p>Введите целое число x: 
+	<input id="x" size="4" title="целое число Х"
+	onchange="if (isNotEmpty(this)) {isNumber(this)}"/>. Введите
+	натуральное число k: 
+	<input id="k" size="4" title="натуральное число k"
+	onchange="if (isNotEmpty(this)) {isNumber(this)}"/></p>
+	<input type="button" value="Вычислить cумму первых k членов ряда" onclick="if (validateForm2()) { solve2();}"/>
+      </form>      
+      <div id="task2output">
+      <p class="result">Сумма первых <span id="num"> </span> членов
+      ряда <em>&Sigma;<span id="ex"> </span><sup>i+1</sup>/(i-1)!</em>
+      равна <span id="sum"> </span></p>
+      </div>
+      <h4>Комментарии к решению:</h4>
+      <p>Чтобы не вычислять факториал в знаменателе для каждого члена ряда,
+	 заметим что начиная со второго, каждый член
+	ряда a<sub>k</sub> выражается через предыдущий: a<sub>k</sub>
+	= a<sub>k-1</sub> * х / (к-1).<br /> Заметим также  что 0! =
+	 1, и поэтому a<sub>1</sub> = х<sup>2</sup>/0! =
+	 x<sup>2</sup></p>
+      <img src="flowchart2.gif" class="flowchart"/>
+    <h4>Исходный код програмы:</h4>
+    <pre>
+      // Значения переменных берем из полей ввода
+      var x = parseInt(document.forms["task2form"].x.value, 10);
+      var k = parseInt(document.forms["task2form"].k.value, 10);
+      
+      // переходим к решению
+      var a = x * x // первый член ряда
+      var s = a // сумма первых к членов ряда при к = 1
+      for (var i = 2; i <= k; i++)
+          {
+	      a = a * x / (i-1); // для каждого i находим i-й член ряда
+	      s = s + a; // На каждом шаге цикла S - сумма i  членов ряда
+	  }
+			   
+      printTask2Result(s); // Выводим результат на экран
+    </pre>
+    </div>
+    <div id="task3">
+      <h2>Задание 3.Обработка массивов</h2>
+      <p>Составить блок-схему вычислительного процесса и написать
+      программу на любом алгоритмическом языке высокого уровня.</p>
+      <h3>Условие задачи.</h3>
+      <p>№1. Вычислить Z&nbsp;=&nbsp;0,2X&nbsp;-&nbsp;Y<sup>2</sup>, где X – минимальный элемент массива
+    A(25), Y – максимальный элемент массива B(30).</p>
+      <h3>Решение:</h3>
+      <p>Массивы А и В заполняются случайными целыми числами в
+      заданном диапазоне значений.</p>
+      <form id="task3form" action="">
+	<p>Массив А заполняется числами в диапазоне от <input id="a_bottom_limit" type="text"
+	size="4" title="Левая граница диапазона значений массива А" onchange="if (isNotEmpty(this)) {isNumber(this)}"/>
+	до <input id="a_top_limit" type="text"
+	size="4" title="Правая граница диапазона значений массива А" onchange="if (isNotEmpty(this))
+	{isNumber(this)}"/>. <br />Массив В заполняется числами в диапазоне от <input id="b_bottom_limit" type="text"
+	size="4" title="Левая граница диапазона значений массива В" onchange="if (isNotEmpty(this)) {isNumber(this)}"/>
+	до <input id="b_top_limit" type="text"
+	size="4" title="Правая граница диапазона значений массива В" onchange="if (isNotEmpty(this))
+	{isNumber(this)}"/>.</p>
+	<input type="button" value="Вычислить" onclick="if (validateForm3()) { solve3();}"/>
+      </form>
+      <div id="task3output">
+      <p>Массив A: <span id="arrA"> </span>.</p>
+      <p>Массив B: <span id="arrB"> </span>.</p>
+      <p>X = <span id="minA"> </span>,Y = <span id="maxB"> </span>.</p>
+      <p class="result">Z = <span id="result"> </span></p>
+      </div>
+      <img src="flowchart3.1.gif" class="flowchart"/>
+      <img src="flowchart3.2.gif" class="flowchart"/>
+      <h4>Исходный код программы:</h4>
+      <pre>
+      // Значения границ диапазонов для заполнения массивов берутся из полей ввода.
+      
+      var form = document.forms["task3form"];
+      var a_bottom_limit = parseInt(form.a_bottom_limit.value, 10),
+      a_top_limit = parseInt(form.a_top_limit.value, 10),
+      b_bottom_limit = parseInt(form.b_bottom_limit.value, 10),
+      b_top_limit = parseInt(form.b_top_limit.value, 10);      
+      
+      // Заполняем массивы случайными целыми числами в заданных диапазонах значений
+      
+      var a = new Array(25);
+      var b = new Array(30);
+      for (var i = 0; i < a.length; i++)
+	{
+	  a[i]= Math.floor(Math.random() * (a_top_limit - a_bottom_limit + 1)) + a_bottom_limit;
+	}
+      for (var i = 0; i < b.length; i++)
+	{
+	  b[i]= Math.floor(Math.random() * (b_top_limit - b_bottom_limit + 1)) + b_bottom_limit;
+	}
+			  
+      // x - минимальный среди первых i элементов массива a	
+			  
+      var x = a[0];
+      for (var i = 1; i < a.length; i++)
+	{
+          if (a[i] < x)
+            {
+              x = a[i];
+            }
+	}
+		     
+      // y - максимальный среди первых i элементов массива b	 
+		     
+      var y = b[0];
+      for (var i = 1; i < b.length; i++)
+	{
+          if (b[i] > y)
+            {
+              y = b[i];
+            }
+	}	
+
+      // Вычисляем и выводим на экран результат
+		     
+      var z = 0.2*x - y*y;
+      printTask3Result(a,b,x,y,z);
+    </pre>
+    </div>
+  </body>
+<html>

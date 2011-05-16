@@ -1,0 +1,21 @@
+* {
+    font-size: 110%;
+}
+
+h1, h2, h3, h4, .flowchart {
+    text-align: center;
+}
+
+.flowchart {
+	   display: block;
+	   margin:0 auto;
+	  }
+	  
+.result {
+    font-weight: bold;
+    font-size: 150%;
+}
+
+#task2output, #task3output {
+    visibility: hidden;
+}
